@@ -3,7 +3,59 @@
     <head>
         <title>Launch Checklist</title>
         <link rel = "stylesheet" type = "text/css" href = "styles.css" />
-        <script src = "script.js"></script>
+        <script src="script.js"></script>
+<script>            window.addEventListener("load",function(){
+                let form = document.querySelector("form");
+                form.addEventListener("submit", function(event) {
+                    let pilotNameInput = document.querySelector("input[name=pilotName]");
+                    let copilotNameInput = document.querySelector("input[name=copilotName]");
+                    let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
+                    let cargoMassInput = document.querySelector("input[name=cargoMass]");
+                    if (pilotNameInput.value === "" || copilotNameInput.value === ""|| fuelLevelInput.value ===  undefined || cargoMassInput ===  null) {
+                        alert("All fields are required!");
+                    }  if (isNaN(fuelLevelInput.value) || isNaN(cargoMassInput.value)){
+                        alert("Please enter valid information for each field!");
+                        console.log(cargoMassInput.value)
+                        event.preventDefault();
+
+                        
+                        
+         }
+         
+
+         if (fuelLevelInput.value < 10000 ){
+             document.getElementById("faultyItems").style.visibility = "visible";
+             document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch.";
+             document.getElementById('launchStatus').style['background-color'] = 'red';
+             document.getElementById("fuelStatus").innerHTML = "Fuel level insufficient for launch";
+             document.getElementById("pilotStatus").innerHTML = `${pilotNameInput.value} ready for launch`;
+         document.getElementById("copilotStatus").innerHTML = `${copilotNameInput.value} ready for launch`;
+
+            }
+             if (cargoMassInput.value > 10000){
+                document.getElementById("faultyItems").style.visibility = "visible";
+                document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch.";
+                document.getElementById("cargoStatus").innerHTML = "Too heavy for launch";
+                document.getElementById("pilotStatus").innerHTML = `${pilotNameInput.value} ready for launch`;
+         document.getElementById("copilotStatus").innerHTML = `${copilotNameInput.value} ready for launch`;
+         document.getElementById('launchStatus').style['background-color'] = 'red';
+
+
+
+            }
+                 if (cargoMassInput.value < 10000 && fuelLevelInput.value > 10000) {
+                     document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch.";
+                     document.getElementById("launchStatus").style['background-color'] = "green";
+                     document.getElementById("pilotStatus").innerHTML = `${pilotNameInput.value} ready for launch`;
+                     document.getElementById("copilotStatus").innerHTML = `${copilotNameInput.value} ready for launch`;
+
+                    }
+                    event.preventDefault();
+      }); 
+
+ });
+ 
+        </script>
     </head>
     <body>
         <h1>Launch Checklist Form</h1>
@@ -16,13 +68,13 @@
                     <label>Pilot Name <input type="text" name="pilotName" id="pilotName"/></label>
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
-                    <label>Co-pilot Name <input type="text" name="copilotName"/></label>
+                    <label>Co-pilot Name <input type="text" name="copilotName" id="copilotName"/></label>
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
-                    <label>Fuel Level (L) <input type="text" name="fuelLevel"/></label> 
+                    <label>Fuel Level (L) <input type="text" name="fuelLevel" id="fuelLevel"/></label> 
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
-                    <label>Cargo Mass (kg) <input type="text" name="cargoMass"/></label>
+                    <label>Cargo Mass (kg) <input type="text" name="cargoMass" id="cargoMass"/></label>
                 </div>
                 <button id="formSubmit">Submit</button>
             </form>
@@ -31,12 +83,14 @@
             <h2 id="launchStatus">Awaiting Information Before Launch</h2>
             <div  id="faultyItems">
                 <ol>
-                    <li id="pilotStatus">Pilot Ready</li>
+                    <li id="pilotStatus"> Pilot Ready </li>
                     <li id="copilotStatus">Co-pilot Ready</li>
-                    <li id="fuelStatus">Fuel level high enough for launch</li>
+                    <li id="fuelStatus"> Fuel level high enough for launch</li>
                     <li id="cargoStatus">Cargo mass low enough for launch</li>
                 </ol>
             </div>
         </div>    
     </body>
 </html>
+
+
